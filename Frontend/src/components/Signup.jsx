@@ -1,81 +1,58 @@
-// import React from 'react';
-// import { Link } from 'react-router-dom';
 
-// import { useForm } from "react-hook-form";
-
-
-// import Login from './Login';
-// function Signup() {
-
-//  const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//   } = useForm();
-
-//   const onSubmit = (data) => console.log(data);
-
-//   return (
-//     <div className="flex items-center justify-center min-h-screen bg-gray-50">
-//       <div className="relative border-2 shadow-md p-8 rounded-md w-[500px] bg-white">
-//         {/* Close Button */}
-//         {/* <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button> */}
-//         <Link to="/"className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</Link>
-
-//         {/* Heading */}
-//         <h3 className="font-bold text-xl text-center mb-4">Signup</h3>
-
-//         {/* Fields */}
-//         <div className="space-y-3">
-//           <div>
-//             <span>Name</span>
-//             <input type="text" placeholder="Enter your name" className="w-full border rounded-md px-3 py-2 outline-none" />
-//           </div>
-//           <div>
-//             <span>Email</span>
-//             <input type="email" placeholder="Enter your email" className="w-full border rounded-md px-3 py-2 outline-none" />
-//           </div>
-//           <div>
-//             <span>Password</span>
-//             <input type="password" placeholder="Enter your password" className="w-full border rounded-md px-3 py-2 outline-none" />
-//           </div>
-//         </div>
-
-//         {/* Button */}
-//         <div className="flex flex-col items-center mt-6">
-//           <button className="bg-pink-500 w-full py-2 border rounded-md hover:bg-pink-700 duration-200 text-white">
-//             Signup
-//           </button>
-//           <p className="text-xl mt-1">
-//             Have an account?{' '}
-//             <button className="underline text-blue-500 cursor-pointer" 
-//              onClick={() => document.getElementById("my_modal_3").showModal()}>Login</button>
-//               <Login/>
-//           </p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Signup;
-
-
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import Login from './Login';
-
+import axios from "axios";
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 function Signup() {
-
+ 
+  const location=useLocation()
+  const from=location.state?.from?.pathname || "/";
+  const navigate=useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm(); 
 
-  const onSubmit = (data) => {
-    console.log(data);
+  // const onSubmit = (data) => {
+  //   console.log(data);
+  // };
+  const onSubmit =async (data) => {
+     const userInfo={
+      fullname:data.fullname,
+      email:data.email,
+      password:data.password,
+     }
+
+//call API by using axios to store above data
+await axios.post("http://localhost:4001/user/signup",userInfo)
+.then((res)=>{
+  console.log(res.data)
+//if we have response data then will do signup
+if(res.data){
+  // alert("signup succesfully")
+    toast.success('signup succesfully!');
+  navigate(from,{replace:true});
+  
+}
+
+//after signup, data store ho je browser k local storage me 
+localStorage.setItem("Users", JSON.stringify(res.data.user));
+})
+
+.catch((err) => {
+  console.log(err.response.data);
+  // alert(err.response.data.message);
+  toast.error(err.response.data.message);
+});
+
+
+// .catch((err)=>{
+//   console.log(err)
+//   alert("error:"+err)
+//})
   };
 
   return (
@@ -101,12 +78,12 @@ function Signup() {
             <span>Name</span>
             <input
               type="text"
-              {...register("name", { required: "Name is required" })}
+              {...register("fullname", { required: "Name is required" })}
               placeholder="Enter your name"
               className="w-full border rounded-md px-3 py-2 outline-none"
             />
-            {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            {errors.fullname && (
+              <p className="text-red-500 text-sm">{errors.fullname.message}</p>
             )}
           </div>
 

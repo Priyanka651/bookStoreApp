@@ -37,7 +37,7 @@ import banner from '../../public/banner.png';
 
 {/* button section secondary */}
 <button className="btn mt-6 bg-pink-500 hover:bg-pink-600 text-white border-none text-sm flex items-center justify-center px-8 py-3 rounded-lg">
-  Secondary
+  Get Started
 </button>
 {/* button section end */}
 

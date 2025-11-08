@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Login from './Login';
+import { useAuth } from '../context/AuthProvider.jsx';
+import Logout from './Logout.jsx';
 function Navbar() {
+
+const[authUser,setAuthUser]=useAuth();
 
   // theme-darkmode and light
  
@@ -47,7 +51,7 @@ function Navbar() {
         <a href="/course">Courses</a>
     </li>
       <li>
-        <a>Contacts</a>
+        <a href="/Contact">Contacts</a>
     </li>
     <li>
        <a>About</a>
@@ -145,12 +149,26 @@ function Navbar() {
 
 
 {/* login button */}
-<div>
+{/* <div>
     <a className="bg-black text-white px-3 py-2 round-md hover:bg-slate-800 duration-300 cursor-pointer"
     onClick={() => document.getElementById("my_modal_3").showModal()}>
      Login</a>
 </div>
-<Login/>
+<Login/> */}
+
+{authUser?(
+  <Logout/>
+)
+:(
+  <div>
+    <a className="bg-black text-white px-3 py-2 round-md hover:bg-slate-800 duration-300 cursor-pointer"
+    onClick={() => document.getElementById("my_modal_3").showModal()
+}>
+     Login
+    </a>
+<Login/> 
+</div>  
+)}
 
 </div>
 </div>

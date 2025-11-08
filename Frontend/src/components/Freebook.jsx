@@ -1,13 +1,37 @@
-import list from "../../public/list.json";
+// import list from "../../public/list.json";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Cards from "../components/Cards";
 
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 
+//same course.jsx vala krna api call vgera for homepage pe jo books hai unka data lene k lea
 
 function Freebook(){
-  const filterData=list.filter((data)=>data.category==="free");
+
+//same course.jsx vala
+
+const[book,setBook]=useState([]);
+useEffect(()=>{
+  const getBook=async()=>{
+    try{
+      const res= await axios.get("http://localhost:4001/book");
+      
+     const data= res.data.filter((data)=>data.category==="free");
+      //yha pe filter vala data dikhana hai means sb ni aana chahiye na jese courses me hai many books so yha seelcted filtered chahiye
+        console.log(data);
+        setBook(data);
+    }catch(error){
+      console.log(error);
+    }
+  };
+  getBook();
+},[]);
+
+  // const filterData=list.filter((data)=>data.category==="free");
 
   var settings = {
     dots: true,
@@ -64,7 +88,8 @@ function Freebook(){
   {/* slider */}
 <div>
 <Slider {...settings}>
-{filterData.map((item)=>(
+{/* {filterData.map((item)=>( */}
+{book.map((item)=>(
   <Cards item={item} key={item.id}/>
 ))}
 
