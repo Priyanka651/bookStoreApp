@@ -5,7 +5,7 @@ import Contact from '../Contact';
 function Contacts() {
   return (
     
-    <div className='min-h-screen bg-slate-300'> 
+    <div className='min-h-screen bg-pink-300'> 
       <Navbar/>
     <Contact/>
     <Footer/>

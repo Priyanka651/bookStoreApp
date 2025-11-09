@@ -1,7 +1,7 @@
 import Home from './Home/Home';
 import Courses from './courses/Courses';
 import Signup from './components/Signup';
-import Contacts from './components/Contacts/Contacts.jsx';
+import Contacts from './components/contacts/Contacts.jsx';
 import {Navigate,Route, Routes} from 'react-router-dom';
 import { useAuth } from './context/AuthProvider.jsx';
 
