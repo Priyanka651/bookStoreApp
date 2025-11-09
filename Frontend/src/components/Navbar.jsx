@@ -54,8 +54,10 @@ const[authUser,setAuthUser]=useAuth();
         <a href="/Contact">Contacts</a>
     </li>
     <li>
-       <a>About</a>
+       <a  href="/About">About</a>
       </li>
+
+      
     </>
   )
 
@@ -89,7 +91,7 @@ const[authUser,setAuthUser]=useAuth();
 
 
     </div>
-    <a className="text-2xl font-bold cursor-pointer">BookStore</a>
+    <a href="/" className="text-2xl font-bold cursor-pointer">BookStore</a>
   </div>
 
 

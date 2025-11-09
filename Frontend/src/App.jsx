@@ -4,7 +4,7 @@ import Signup from './components/Signup';
 import Contacts from './components/contacts/Contacts.jsx';
 import {Navigate,Route, Routes} from 'react-router-dom';
 import { useAuth } from './context/AuthProvider.jsx';
-
+import About from './components/About/About.jsx';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
@@ -23,6 +23,7 @@ console.log(authUser);
         <Route path='/course' element={authUser ? <Courses/> : <Navigate to="/signup"/>}/>
        <Route path='/Signup' element={<Signup/>}/>
          <Route path='/Contact' element={<Contacts/>}/>
+         <Route path='/About' element={<About/>}/>
         </Routes>
 
              <Toaster />

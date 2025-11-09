@@ -1,16 +1,15 @@
-import React from 'react'
+
 import Navbar from '../Navbar';
 import Footer from '../Footer';
-import Contact from '../Contact';
-function Contacts() {
+import Abouts from '../Abouts';
+function About() {
   return (
-    
     <div className='min-h-screen'> 
       <Navbar/>
-    <Contact/>
-    <Footer/>
+      <Abouts/>
+      <Footer/>
     </div>
   )
-}
+};
 
-export default Contacts;
+export default About;
